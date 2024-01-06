@@ -1,0 +1,33 @@
+<!-- timesheet.component.html -->
+
+<form [formGroup]="formularioExcel">
+  <div class="tabla-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Actividad</th>
+          <!-- Columnas para los días del mes -->
+          <ng-container *ngFor="let fecha of fechasMes">
+            <th [ngClass]="{'bloqueado': esFinDeSemana(fecha)}">{{ fecha | date:'dd/MM' }}</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Filas para cada actividad -->
+        <ng-container *ngFor="let actividad of actividades">
+          <tr>
+            <td>{{ actividad.actividad }}</td>
+            <!-- Celdas para los días del mes -->
+            <ng-container *ngFor="let fecha of fechasMes">
+              <td>
+                <input [ngClass]="{'bloqueado': esFinDeSemana(fecha)}">
+              </td>
+            </ng-container>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+  <button type="button" (click)="guardarDatos()">Guardar</button>
+</form>
